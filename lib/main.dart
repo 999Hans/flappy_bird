@@ -11,16 +11,22 @@ class MyGame extends FlameGame {
   Future<void> onLoad() async{
     super.onLoad();
     SpriteComponent background = SpriteComponent();
-    SpriteAnimationComponent bird = SpriteAnimationComponent();;
+    SpriteAnimationComponent bird = SpriteAnimationComponent();
     
 
     add(background
     ..sprite = await loadSprite('bg.png')
     ..size = size);
-    
-    add(bird
-    ..sprite = await loadSpriteAnimation("bir")
-    );
+
+    var spriteSheet = await images.load('bird.png');
+    final spriteSize = Vector2(52, 36.7);
+    SpriteAnimationData spriteData = SpriteAnimationData.sequenced(amount: 3 , stepTime: 0.1, textureSize: Vector2(17, 12));
+    bird = SpriteAnimationComponent.fromFrameData(spriteSheet, spriteData)
+    ..x = 100
+    ..y = 100
+    ..size = spriteSize;
+
+    add(bird);
 
   }
 }
