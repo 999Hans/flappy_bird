@@ -46,6 +46,8 @@ class MyGame extends FlameGame with TapDetector {
     if (floor.x.abs() > size.x) {
       floor.x = 0;
     }
+
+    print(checkCollison(bird.toRect(), floor.toRect()));
   }
 
   @override
