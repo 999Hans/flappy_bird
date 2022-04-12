@@ -20,7 +20,7 @@ class MyGame extends FlameGame with TapDetector {
       ..sprite = await loadSprite('bg.png')
       ..size = size);
 
-    var spriteSheet = await images.load('pipe_up.png');
+    var spriteSheet = await images.load('bird.png');
     final spriteSize = Vector2(52, 36.7);
     SpriteAnimationData spriteData = SpriteAnimationData.sequenced(
         amount: 3, stepTime: 0.1, textureSize: Vector2(17, 12));
