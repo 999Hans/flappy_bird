@@ -26,6 +26,8 @@ class MyGame extends FlameGame with TapDetector {
 
   double pipeLevel = 1;
   double pipeGap = 4;
+
+  bool hadscored = false;
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -91,6 +93,7 @@ class MyGame extends FlameGame with TapDetector {
           ..y = size.y * 0.4;
         pipeUp.x = size.x;
         pipeDown.x = size.x;
+        hadscored = false;
         break;
       case GameState.play:
         velocityY += (gravity + Game_Speed) * dt;
@@ -122,7 +125,10 @@ class MyGame extends FlameGame with TapDetector {
           pipeLevel = Random().nextInt(5) + 1;
           pipeUp.y = size.y / 12 * (pipeLevel - 7);
           pipeDown.y = size.y / 12 * (pipeLevel + pipeGap);
+          hadscored = false;
         }
+
+        checkIfBirdPassedPipe();
         break;
       case GameState.gameover:
         break;
@@ -153,5 +159,22 @@ class MyGame extends FlameGame with TapDetector {
   bool checkCollison(Rect Item1, Rect Item2) {
     var intersectedRect = Item1.intersect(Item2);
     return intersectedRect.height > 2 && intersectedRect.width > 2;
+  }
+
+  bool checkIfBirdPassedPipe() {
+    if (hadscored) {
+      return false;
+    }
+    if (pipeUp.toRect().right < bird.toRect().left) {
+      print("score!");
+      scoreUpdated();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void scoreUpdated() {
+    hadscored = true;
   }
 }
